@@ -52,13 +52,17 @@ class ExtratorURL:
         return self.url == other.url
 
 
-url = "bytebank.com/cambio?quantidade=100&moedaOrigem=real&moedaDestino=dolar"
+url = "bytebank.com/cambio?quantidade=1&moedaOrigem=real&moedaDestino=dolar"
 extrator_url = ExtratorURL(url)
-extrator_url2 = ExtratorURL(url)
-print("O tamanho da URL: ", len(extrator_url))
-print(extrator_url)
+VALOR_DOLAR = 5.50
+moeda_origem = extrator_url.get_valor_parametro("moedaOrigem")
+moeda_destino = extrator_url.get_valor_parametro("moedaDestino")
+quantidade = float(extrator_url.get_valor_parametro("quantidade"))
 
-print(extrator_url == extrator_url2)
+if moeda_origem == 'real':
+    valor_conversao = quantidade * VALOR_DOLAR
+else:
+    valor_conversao = quantidade / VALOR_DOLAR
 
-valor_quantidade = extrator_url.get_valor_parametro("quantidade")
-print(valor_quantidade)
+print(
+    f"Resultado: quantidade {quantidade} da moeda {moeda_origem} é igual a {round(valor_conversao, 2)} na moeda {moeda_destino}")
